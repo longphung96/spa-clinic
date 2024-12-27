@@ -1,5 +1,6 @@
 FROM golang:1.23-alpine AS builder
 
+
 # Move to working directory (/build).
 WORKDIR /build
 
