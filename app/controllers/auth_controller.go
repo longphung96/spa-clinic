@@ -60,7 +60,7 @@ func UserSignUp(c *fiber.Ctx) error {
 	}
 
 	// Checking role from sign up data.
-	role, err := utils.VerifyRole(signUp.UserRole)
+	roles, err := utils.VerifyRole(signUp.UserRole)
 	if err != nil {
 		// Return status 400 and error message.
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -78,7 +78,7 @@ func UserSignUp(c *fiber.Ctx) error {
 	user.Email = signUp.Email
 	user.PasswordHash = utils.GeneratePassword(signUp.Password)
 	user.UserStatus = 1 // 0 == blocked, 1 == active
-	user.UserRole = role
+	user.UserRole = roles
 
 	// Validate user fields.
 	if err := validate.Struct(user); err != nil {
